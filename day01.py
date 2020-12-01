@@ -26,7 +26,7 @@ def part_one(input_list: List[str]) -> int:
             return i * (TARGET - i)
 
 
-def part_two(input_list: List[str]):
+def part_two(input_list: List[str]) -> int:
     set_input = set(input_list)
     for i in set_input:
         for j in set_input:
