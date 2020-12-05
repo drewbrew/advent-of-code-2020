@@ -1,3 +1,4 @@
+"""day 5: boarding passes"""
 from typing import Tuple, List
 
 TEST_INPUTS = {
@@ -12,6 +13,11 @@ with open("day05.txt") as infile:
 
 
 def boarding_pass_to_seat(boarding_pass: str) -> Tuple[int, int]:
+    """Convert a boarding pass string into a row and column for seat finding
+
+    Because the strings are just binary representations of integers, we can abuse
+    Python's booleans and convert them from FBFBBFF to 0101100
+    """
     binary_row = "".join(str(int(char == "B")) for char in boarding_pass[:7])
     binary_col = "".join(str(int(char == "R")) for char in boarding_pass[7:])
     row = int(binary_row, 2)
@@ -20,14 +26,17 @@ def boarding_pass_to_seat(boarding_pass: str) -> Tuple[int, int]:
 
 
 def seat_to_seat_id(seat: Tuple[int, int]) -> int:
+    """Convert a row/column pair into a seat ID"""
     return seat[0] * 8 + seat[1]
 
 
 def part_one(puzzle_input: List[str]) -> int:
+    """Find the highest seat ID on the plane"""
     return max(seat_to_seat_id(boarding_pass_to_seat(line)) for line in puzzle_input)
 
 
 def part_two(puzzle_input: List[str]) -> int:
+    """Find your seat: the boarding pass where there's a gap in the sequence"""
     seat_ids = sorted(
         seat_to_seat_id(boarding_pass_to_seat(line)) for line in puzzle_input
     )
@@ -37,11 +46,18 @@ def part_two(puzzle_input: List[str]) -> int:
     ):
         if current_seat != last_seat + 1:
             return last_seat + 1
+    raise ValueError("no gap found")
 
 
-for boarding_pass, (row, col, seat_id) in TEST_INPUTS.items():
-    assert boarding_pass_to_seat(boarding_pass) == (row, col), boarding_pass
-    assert seat_to_seat_id((row, col)) == seat_id, boarding_pass
+def main():
+    """here goes"""
+    for boarding_pass, (row, col, seat_id) in TEST_INPUTS.items():
+        assert boarding_pass_to_seat(boarding_pass) == (row, col), boarding_pass
+        assert seat_to_seat_id((row, col)) == seat_id, boarding_pass
 
-print(part_one(REAL_INPUT))
-print(part_two(REAL_INPUT))
+    print(part_one(REAL_INPUT))
+    print(part_two(REAL_INPUT))
+
+
+if __name__ == "__main__":
+    main()
