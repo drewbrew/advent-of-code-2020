@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7c9220efccf6bf633ac7713c109ffac270a275f8b7e4525a8934292849e89781"
+            "sha256": "b04a7b89b04c3d47dce55974ffd30bf7a5268942c720db126089c612004692e1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,15 +15,31 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "decorator": {
+            "hashes": [
+                "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760",
+                "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"
+            ],
+            "version": "==4.4.2"
+        },
+        "networkx": {
+            "hashes": [
+                "sha256:7978955423fbc9639c10498878be59caf99b44dc304c2286162fd24b458c1602",
+                "sha256:8c5812e9f798d37c50570d15c4a69d5710a18d77bafc903ee9c5fba7454c616c"
+            ],
+            "index": "pypi",
+            "version": "==2.5"
+        }
+    },
     "develop": {
         "appnope": {
             "hashes": [
-                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
-                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
+                "sha256:93aa393e9d6c54c5cd570ccadd8edad61ea0c4b9ea7a01409020c9aa019eb442",
+                "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"
             ],
             "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.0"
+            "version": "==0.1.2"
         },
         "backcall": {
             "hashes": [
@@ -102,11 +118,11 @@
         },
         "pygments": {
             "hashes": [
-                "sha256:381985fcc551eb9d37c52088a32914e00517e57f4a21609f48141ba08e193fa0",
-                "sha256:88a0bbcd659fcb9573703957c6b9cff9fab7295e6e76db54c9d00ae42df32773"
+                "sha256:ccf3acacf3782cbed4a989426012f1c535c9a90d3a7fc3f16d231b9372d2b716",
+                "sha256:f275b6c0909e5dafd2d6269a656aa90fa58ebf4a74f8fcf9053195d226b24a08"
             ],
             "markers": "python_version >= '3.5'",
-            "version": "==2.7.2"
+            "version": "==2.7.3"
         },
         "traitlets": {
             "hashes": [
