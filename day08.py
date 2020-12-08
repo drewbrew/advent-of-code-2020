@@ -46,21 +46,27 @@ class CPU:
             "jmp": self.jmp,
             "nop": self.nop,
         }
-        func, arg = self.instructions[self.instruction_pointer].split()
+        try:
+            func, arg = self.instructions[self.instruction_pointer].split()
+        except IndexError:
+            raise ProgramTerminated(self)
         funcs[func](arg)
 
 
-def part_one(puzzle_input: List[str]) -> Union[int, CPU]:
+class ProgramTerminated(Exception):
+    def __init__(self, cpu: CPU, *args: object) -> None:
+        self.cpu = cpu
+        msg = f"Program terminated; instruction ptr {cpu.instruction_pointer}"
+        super().__init__(msg, *args)
+
+
+def part_one(puzzle_input: List[str]) -> int:
     """Part one: run until the program loops, then return the accumulator"""
     cpu = CPU(puzzle_input)
     instructions_seen = set()
     while cpu.instruction_pointer not in instructions_seen:
         instructions_seen.add(cpu.instruction_pointer)
-        try:
-            cpu.next()
-        except IndexError:
-            # we reached the end of the program (part 2)
-            return cpu
+        cpu.next()
     return cpu.accumulator
 
 
@@ -78,10 +84,11 @@ def part_two(puzzle_input: List[str]) -> int:
         else:
             new_instr = "jmp"
         puzzle_input[index] = f"{new_instr} {arg}"
-        result = part_one(puzzle_input)
-        if isinstance(result, CPU):
+        try:
+            part_one(puzzle_input)
+        except ProgramTerminated as exc:
             # Yay!
-            return result.accumulator
+            return exc.cpu.accumulator
         # oh well. Reset the instruction and try again
         puzzle_input[index] = f"{instruction} {arg}"
     raise ValueError("nothing worked")
