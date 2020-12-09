@@ -36,9 +36,6 @@ with open("day09.txt") as infile:
 
 def is_valid_number(number: int, numbers_seen: List[int], search_window: int) -> bool:
     valid_candidates = set(numbers_seen[-search_window:])
-    if number in valid_candidates:
-        valid_candidates.remove(number)
-        valid_candidates.add(numbers_seen[-search_window - 1])
 
     for candidate in valid_candidates:
         alternate_candidate = number - candidate
