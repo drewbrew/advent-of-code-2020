@@ -120,5 +120,5 @@ if __name__ == "__main__":
     test_masks()
     assert run(TEST_INPUT) == 165, run(TEST_INPUT)
     print(run(puzzle_input=REAL_INPUT))
-    assert run(PART_TWO_TEST_INPUT, True) == 208, run(PART_TWO_TEST_INPUT, 208)
+    assert run(PART_TWO_TEST_INPUT, True) == 208
     print(run(puzzle_input=REAL_INPUT, part_two=True))
