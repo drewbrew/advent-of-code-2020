@@ -1,6 +1,6 @@
 """Day 15: memory game"""
 
-from typing import Deque, Dict, List
+from typing import Deque, Dict
 from collections import deque, defaultdict
 
 TEST_INPUTS = {
