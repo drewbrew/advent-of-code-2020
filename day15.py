@@ -1,7 +1,7 @@
 """Day 15: memory game"""
 
 from typing import Deque, Dict, List
-from collections import deque
+from collections import deque, defaultdict
 
 TEST_INPUTS = {
     "0,3,6": 436,
@@ -17,12 +17,12 @@ TEST_INPUTS = {
 class Game:
     def __init__(self, numbers: str) -> None:
         super().__init__()
-        self.turns: Dict[int, Deque[int]] = {}
+        self.turns: Dict[int, Deque[int]] = defaultdict(lambda: deque(maxlen=2))
         self.next_turn_number = 1
         self.last_number_spoken = 0
         for number_str in numbers.split(","):
             number = int(number_str)
-            self.turns.setdefault(number, deque(maxlen=2)).append(self.next_turn_number)
+            self.turns[number].append(self.next_turn_number)
             self.last_number_spoken = number
             self.next_turn_number += 1
 
@@ -34,9 +34,7 @@ class Game:
             first, second = previous_turns
             self.last_number_spoken = second - first
 
-        self.turns.setdefault(self.last_number_spoken, deque(maxlen=2)).append(
-            self.next_turn_number
-        )
+        self.turns[self.last_number_spoken].append(self.next_turn_number)
         self.next_turn_number += 1
 
 
