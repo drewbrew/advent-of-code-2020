@@ -1,7 +1,7 @@
 """Day 15: memory game"""
 
-from typing import Dict, List
-
+from typing import Deque, Dict, List
+from collections import deque
 
 TEST_INPUTS = {
     "0,3,6": 436,
@@ -17,38 +17,26 @@ TEST_INPUTS = {
 class Game:
     def __init__(self, numbers: str) -> None:
         super().__init__()
-        self.turns: Dict[int, List[int]] = {}
+        self.turns: Dict[int, Deque[int]] = {}
         self.next_turn_number = 1
         self.last_number_spoken = 0
         for number_str in numbers.split(","):
             number = int(number_str)
-            if number in self.turns:
-                self.turns[number] = (self.turns[number] + [self.next_turn_number])[-2:]
-            else:
-                self.turns[number] = [self.next_turn_number]
+            self.turns.setdefault(number, deque(maxlen=2)).append(self.next_turn_number)
             self.last_number_spoken = number
             self.next_turn_number += 1
 
     def take_turn(self):
-        # print(self.turns, self.last_number_spoken)
-        try:
-            previous_turns = self.turns[self.last_number_spoken]
-        except KeyError:
-            print("oop")
-            self.turns[self.last_number_spoken] = [self.next_turn_number]
-            self.last_number_spoken = 0
-            self.next_turn_number += 1
-            return
-        # print(previous_turns)
+        previous_turns = self.turns[self.last_number_spoken]
         if len(previous_turns) < 2:
             self.last_number_spoken = 0
         else:
             first, second = previous_turns
             self.last_number_spoken = second - first
 
-        self.turns[self.last_number_spoken] = (
-            self.turns.get(self.last_number_spoken, []) + [self.next_turn_number]
-        )[-2:]
+        self.turns.setdefault(self.last_number_spoken, deque(maxlen=2)).append(
+            self.next_turn_number
+        )
         self.next_turn_number += 1
 
 
@@ -56,7 +44,6 @@ def part_one(puzzle_input: str, turns=2020) -> int:
     game = Game(puzzle_input)
     while game.next_turn_number <= turns:
         game.take_turn()
-        # print(game.next_turn_number, game.last_number_spoken)
     return game.last_number_spoken
 
 
