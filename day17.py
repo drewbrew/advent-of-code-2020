@@ -21,14 +21,13 @@ def next_state(
     - If a coordinate is inactive, it only activates if it has exactly 3 active neighbors
     """
     x, y, z = coord
-    neighbors = [
-        (x1, y1, z1)
+    active_neigbors = sum(
+        grid[(x1, y1, z1)]
         for x1 in [x + 1, x, x - 1]
         for y1 in [y + 1, y, y - 1]
         for z1 in [z + 1, z, z - 1]
         if (x1, y1, z1) != (x, y, z)
-    ]
-    active_neigbors = sum(grid[pos] for pos in neighbors)
+    )
     if grid[coord]:
         return active_neigbors in {2, 3}
     return active_neigbors == 3
@@ -43,15 +42,14 @@ def next_state_part_2(
     - If a coordinate is inactive, it only activates if it has exactly 3 active neighbors
     """
     x, y, z, w = coord
-    neighbors = [
-        (x1, y1, z1, w1)
+    active_neigbors = sum(
+        grid[(x1, y1, z1, w1)]
         for x1 in [x + 1, x, x - 1]
         for y1 in [y + 1, y, y - 1]
         for z1 in [z + 1, z, z - 1]
         for w1 in [w + 1, w, w - 1]
         if (x1, y1, z1, w1) != (x, y, z, w)
-    ]
-    active_neigbors = sum(grid[pos] for pos in neighbors)
+    )
     if grid[coord]:
         return active_neigbors in {2, 3}
     return active_neigbors == 3
