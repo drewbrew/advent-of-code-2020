@@ -80,10 +80,12 @@ def part_one(puzzle_input: List[str], turns=6) -> bool:
         min_z = sorted_by_z[0][2] - 1
         max_z = sorted_by_z[-1][2] + 2
         new_grid = defaultdict(lambda: False)
-        for z in range(min_z, max_z):
-            for y in range(min_y, max_y):
-                for x in range(min_x, max_x):
-                    new_grid[(x, y, z)] = next_state((x, y, z), grid)
+        new_grid |= {
+            (x, y, z): next_state((x, y, z), grid)
+            for x in range(min_x, max_x)
+            for y in range(min_y, max_y)
+            for z in range(min_z, max_z)
+        }
         grid = new_grid
     return sum(grid.values())
 
@@ -105,11 +107,13 @@ def part_two(puzzle_input: List[str], turns=6) -> bool:
         min_w = sorted_by_w[0][3] - 1
         max_w = sorted_by_w[-1][3] + 2
         new_grid = defaultdict(lambda: False)
-        for z in range(min_z, max_z):
-            for y in range(min_y, max_y):
-                for x in range(min_x, max_x):
-                    for w in range(min_w, max_w):
-                        new_grid[(x, y, z, w)] = next_state_part_2((x, y, z, w), grid)
+        new_grid |= {
+            (x, y, z, w): next_state_part_2((x, y, z, w), grid)
+            for x in range(min_x, max_x)
+            for y in range(min_y, max_y)
+            for z in range(min_z, max_z)
+            for w in range(min_w, max_w)
+        }
         grid = new_grid
     return sum(grid.values())
 
