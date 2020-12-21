@@ -1,4 +1,3 @@
-from day18 import REAL_INPUT
 from typing import Counter, Dict, List, Set
 
 TEST_INPUT = """mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
